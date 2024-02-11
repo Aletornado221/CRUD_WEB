@@ -6,7 +6,6 @@
     <title>Conexión a base de datos MySQL</title>
 </head>
 <body>
-    <h1>Conexión a base de datos MySQL</h1>
     
     <?php
     // Función para crear una nueva conexión a la base de datos

@@ -29,7 +29,6 @@
     // Función para cerrar la conexión a la base de datos
     function cerrarConexion($conn) {
         $conn->close();
-        echo "<p>Conexión cerrada</p>";
     }
 
     // Ejemplo de uso de las funciones

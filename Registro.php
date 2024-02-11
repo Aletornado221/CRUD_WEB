@@ -66,6 +66,7 @@
             $stmt = $conexion->prepare("INSERT INTO USUARIO (nombre, username, password, sexo, fechaNacimiento) VALUES (?, ?, ?, ?, ?)");
             $stmt->bind_param("sssss", $nombre, $username, $password, $sexo, $fechaNacimiento);
             $stmt->execute();
+            cerrarConexion($conexion);
 
             echo "<p>Registro exitoso</p>";
         } else {

@@ -1,55 +1,25 @@
 <?php
+
+
 session_start();
 
-// Función para conectar a la base de datos
-include 'conexion.php'; // Reemplaza 'nombre_del_archivo.php' con el nombre real de tu archivo
+// Función para verificar el tiempo de inactividad
+function verificarInactividad() {
+    $tiempoInactivo = 120; // 2 minutos en segundos
 
-
-// Verificar si se ha enviado el formulario de login
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verificar el captcha
-    if ($_POST["captcha"] != $_SESSION["captcha"]) {
-        $error = "Captcha incorrecto";
+    // Verificar si existe una marca de tiempo de la última actividad
+    if (isset($_SESSION['ultima_actividad']) && (time() - $_SESSION['ultima_actividad']) > $tiempoInactivo) {
+        // Si el tiempo de inactividad es superior a 2 minutos, redirigir a cierre_sesion.php
+        header("Location: cierre_sesion.php");
+        exit();
     } else {
-        // Recoger y limpiar los datos del formulario
-        $username = htmlspecialchars($_POST["username"]);
-        $password = htmlspecialchars($_POST["password"]);
-
-        // Validar los datos (aquí puedes agregar más validaciones según tus requisitos)
-        if (empty($username) || empty($password)) {
-            $error = "Por favor, introduce un username y una contraseña";
-        } else {
-            // Conectar a la base de datos
-            $conexion = conectarBaseDatos();
-
-            // Consulta SQL para obtener el usuario con el username proporcionado
-            $sql = "SELECT * FROM USUARIO WHERE username = '$username'";
-            $resultado = $conexion->query($sql);
-
-            if ($resultado->num_rows == 1) {
-                $usuario = $resultado->fetch_assoc();
-                // Verificar la contraseña
-                if ($password == $usuario["password"]) {
-                    // Iniciar sesión y redirigir a la página de inicio
-                    $_SESSION["username"] = $username;
-                    header("Location: inicio.php");
-                    exit();
-                } else {
-                    $error = "Contraseña incorrecta";
-                }
-            } else {
-                $error = "Usuario no encontrado";
-            }
-
-            // Cerrar la conexión
-            $conexion->close();
-        }
+        // Actualizar la marca de tiempo de la última actividad
+        $_SESSION['ultima_actividad'] = time();
     }
 }
 
-// Generar un captcha
-$captcha = rand(1000, 9999);
-$_SESSION["captcha"] = $captcha;
+// Llamar a la función de verificación de inactividad en cada carga de página
+verificarInactividad();
 ?>
 
 <!DOCTYPE html>
@@ -57,40 +27,62 @@ $_SESSION["captcha"] = $captcha;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Página de Inicio</title>
     <!-- Incluir estilos de Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <div class="container">
+            <a class="navbar-brand" href="#">EsMotor</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.php">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.php">Acerca de</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <?php if (!isset($_SESSION["username"])) : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="registro.php">Registro</a>
+                        </li>
+                    <?php endif; ?>
+                    <?php if (isset($_SESSION["username"])) : ?>
+                        <li class="nav-item">
+                            <span class="navbar-text mr-3"><?php echo $_SESSION["username"]; ?></span>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="cerrarSesion()">Cerrar Sesión</a>
+                        </li>
+                    <?php else : ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Iniciar Sesión</a>
+                        </li>
+                    <?php endif; ?>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header bg-primary text-white">
-                        <h5 class="card-title mb-0">Login</h5>
+                        <h5 class="card-title mb-0">Página de Inicio</h5>
                     </div>
                     <div class="card-body">
-                        <?php if (isset($error)) : ?>
-                            <div class="alert alert-danger" role="alert">
-                                <?php echo $error; ?>
-                            </div>
-                        <?php endif; ?>
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-                            <div class="form-group">
-                                <label for="username">Username:</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Password:</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="captcha">Captcha:</label><br>
-                                <input type="text" class="form-control" id="captcha" name="captcha" required>
-                                <small>Captcha: <?php echo $captcha; ?></small>
-                            </div>
-                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
-                        </form>
+                        <div class="text-center mb-3">
+                            <?php if (isset($_SESSION["username"])) : ?>
+                                <a href="tercera.php" class="btn btn-primary">Tercera</a>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -102,5 +94,14 @@ $_SESSION["captcha"] = $captcha;
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <!-- Incluir script de Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Función parta cerrar sesión
+        function cerrarSesion() {
+            if (confirm("¿Estás seguro de que quieres cerrar sesión?")) {
+                window.location.href = "tiempo_sesion.php";
+            }
+        }
+    </script>
 </body>
 </html>

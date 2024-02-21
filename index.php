@@ -30,7 +30,7 @@ session_start();
                         <a class="nav-link" href="index.php">Inicio</a>
                     </li>
                     <li class="nav-item" >
-                        <a class="nav-link" href="about.php" onclick="about()">Acerca de</a>
+                        <a class="nav-link" href="about.php">Acerca de</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -87,6 +87,7 @@ session_start();
         // Función para confirmar y luego enviar solicitud a tiempo_sesion.php
 function cerrarSesion() {
     if (confirm("¿Estás seguro de que quieres cerrar sesión?")) {
+        
         window.location.href = "tiempo_sesion.php";
     }
 }

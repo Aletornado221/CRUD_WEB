@@ -40,7 +40,7 @@ session_start();
 
 
                         <?php
-                        include 'conexion.php'; 
+                        include 'conexion.php';
                         function validarDatos($nombre, $username, $password, $sexo, $fechaNacimiento)
                         {
                             // Validar el nombre
@@ -118,19 +118,20 @@ session_start();
                                 <label for="username">Username:</label>
                                 <?php if (!isset($_SESSION["username"])) : ?>
                                     <input type="text" class="form-control" id="username" name="username" required>
-                                <?php else : 
-                                   echo" <input type=\"text\" class=\"form-control\" id=\"username\" name=\"username\" required placeholder=\"" + $_SESSION["username"]+ ">";
-                                endif; ?>
-                                
+                                <?php else : ?>
+                                    <input type="text" class="form-control" id="username" name="username" required value="<?php echo $_SESSION['username']; ?>">
+                                <?php endif; ?>
+
                             </div>
                             <div class="form-group">
                                 <label for="password">Password:</label>
-                                
+
                                 <?php if (!isset($_SESSION["username"])) : ?>
                                     <input type="password" class="form-control" id="password" name="password" required>
-                                <?php else : 
-                                   echo" <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" required placeholder=\"" + $_SESSION["password"]+ ">";
-                                endif; ?>
+                                <?php else : ?>
+                                    <input type="password" class="form-control" id="password" name="password" required value="<?php echo $_SESSION['password']; ?>">
+                                <?php endif; ?>
+
                             </div>
                             <div class="form-group">
                                 <label for="sexo">Sexo:</label><br>

@@ -79,7 +79,6 @@ session_start()
         </div>
       </div>
     </div>
-    <!-- Puedes agregar más columnas con el mismo formato para más imágenes -->
     <div class="col-md-4">
       <div class="card mb-4">
         <img src="./img/S1.jpg" class="card-img-top" alt="Imagen 1">
@@ -133,12 +132,9 @@ function reiniciarTemporizadorDeInactividad() {
     temporizadorDeInactividad = setTimeout(ejecutarArchivoPHP, tiempoDeInactividad);
 }
 
-// Función para ejecutar el archivo PHP
 
 function ejecutarArchivoPHP() {
-    // Hacer una solicitud HTTP a tu archivo PHP
-    // Esto podría ser una llamada AJAX o una redirección
-    // Aquí te dejo un ejemplo de una solicitud AJAX usando fetch()
+  
     <?php if (isset($_SESSION["username"])) : ?>
 
         window.location.href = "tiempo_sesion.php";
@@ -155,7 +151,6 @@ document.addEventListener('keypress', reiniciarTemporizadorDeInactividad);
     reiniciarTemporizadorDeInactividad();
 
 
-// Iniciar el temporizador de inactividad
 
 
     </script>

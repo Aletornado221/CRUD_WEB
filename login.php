@@ -2,8 +2,7 @@
 session_start();
 
 // Función para conectar a la base de datos
-include 'conexion.php'; // Reemplaza 'nombre_del_archivo.php' con el nombre real de tu archivo
-
+include 'conexion.php'; 
 
 // Verificar si se ha enviado el formulario de login
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -22,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Conectar a la base de datos
             $conexion = conectarBaseDatos();
 
-            // Consulta SQL para obtener el usuario con el username proporcionado
+           
             $sql = "SELECT * FROM USUARIO WHERE username = '$username'";
             $resultado = $conexion->query($sql);
 
@@ -47,9 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Contador de intentos de inicio de sesión
-    // Contador de intentos de inicio de sesión
-// Contador de intentos de inicio de sesión
+  
 if (!isset($_SESSION['login_attempts'])) {
     $_SESSION['login_attempts'] = 1;
 } else {
@@ -70,7 +67,6 @@ if ($_SESSION['login_attempts'] >= 3) {
 }
 
 
-// Generar un captcha
 $captcha = rand(1000, 9999);
 $_SESSION["captcha"] = $captcha;
 ?>

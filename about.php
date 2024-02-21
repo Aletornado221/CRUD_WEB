@@ -101,9 +101,7 @@ function reiniciarTemporizadorDeInactividad() {
 // Función para ejecutar el archivo PHP
 
 function ejecutarArchivoPHP() {
-    // Hacer una solicitud HTTP a tu archivo PHP
-    // Esto podría ser una llamada AJAX o una redirección
-    // Aquí te dejo un ejemplo de una solicitud AJAX usando fetch()
+  
     <?php if (isset($_SESSION["username"])) : ?>
 
         window.location.href = "tiempo_sesion.php";
@@ -113,14 +111,12 @@ function ejecutarArchivoPHP() {
 
 }
 
-// Evento para detectar la actividad del usuario (cualquier interacción)
 document.addEventListener('mousemove', reiniciarTemporizadorDeInactividad);
 document.addEventListener('keypress', reiniciarTemporizadorDeInactividad);
     
     reiniciarTemporizadorDeInactividad();
 
 
-// Iniciar el temporizador de inactividad
 
 
     </script>

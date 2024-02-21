@@ -40,8 +40,7 @@ session_start();
 
 
                         <?php
-                        include 'conexion.php'; // Reemplaza 'nombre_del_archivo.php' con el nombre real de tu archivo
-                        // Función para validar los datos del formulario
+                        include 'conexion.php'; 
                         function validarDatos($nombre, $username, $password, $sexo, $fechaNacimiento)
                         {
                             // Validar el nombre

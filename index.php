@@ -67,7 +67,7 @@ session_start();
                     <div class="card-body">
                         <div class="text-center mb-3">
                             <?php if (isset($_SESSION["username"])) : ?>
-                                <a href="tercera.php" class="btn btn-primary">Tercera</a>
+                                <a href="tercera.php" class="btn btn-primary">Galeria de coches</a>
                             <?php endif; ?>
                         </div>
                     </div>

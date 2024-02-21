@@ -100,7 +100,7 @@ function cerrarSesion() {
 
 
 // Establecer el tiempo de inactividad en milisegundos (10 minutos en este caso)
-var tiempoDeInactividad = 2 * 60 * 1000; // 10 minutos
+var tiempoDeInactividad = 10* 1000; // 10 minutos
 
 // Variable para almacenar el temporizador
 var temporizadorDeInactividad;

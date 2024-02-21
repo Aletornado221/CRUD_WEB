@@ -20,7 +20,7 @@ function verificarInactividad()
 }
 
 // Llamar a la función de verificación de inactividad en cada carga de página
-$_SESSION['ultima_actividad'] = time();
+verificarInactividad();
 ?>
 
 <!DOCTYPE html>
@@ -61,7 +61,8 @@ $_SESSION['ultima_actividad'] = time();
                             <span class="navbar-text mr-3"><?php echo $_SESSION["username"]; ?></span>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="cerrarSesion()">Cerrar Sesión</a>
+                        <a class="nav-link" href="#" onclick="cerrarSesion()">Cerrar Sesión</a>
+
                         </li>
                     <?php else : ?>
                         <li class="nav-item">
@@ -100,11 +101,12 @@ $_SESSION['ultima_actividad'] = time();
 
     <script>
         // Función parta cerrar sesión
-        function cerrarSesion() {
-            if (confirm("¿Estás seguro de que quieres cerrar sesión?")) {
-                window.location.href = "tiempo_sesion.php";
-            }
-        }
+        // Función para confirmar y luego enviar solicitud a tiempo_sesion.php
+function cerrarSesion() {
+    if (confirm("¿Estás seguro de que quieres cerrar sesión?")) {
+        window.location.href = "tiempo_sesion.php";
+    }
+}
 
         function about() {
             $tiempoInactivo = 15; // 2 minutos en segundos
@@ -120,6 +122,7 @@ $_SESSION['ultima_actividad'] = time();
                 window.location.href = 'about.php';
             }
         }
+
     </script>
 </body>
 

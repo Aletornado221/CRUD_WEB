@@ -45,7 +45,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conexion->close();
         }
     }
+    
+    // Contador de intentos de inicio de sesión
+    if (!isset($_SESSION['login_attempts'])) {
+        $_SESSION['login_attempts'] = 1;
+    } else {
+        $_SESSION['login_attempts']++;
+    }
+
+    // Si se supera el límite de intentos fallidos, bloquear el acceso
+    if ($_SESSION['login_attempts'] >= 3) {
+        $error = "Demasiados intentos fallidos. Por favor, inténtalo de nuevo más tarde.";
+        // Aquí puedes agregar alguna lógica adicional, como bloquear la cuenta o enviar un correo electrónico de notificación.
+    }
 }
+
 
 // Generar un captcha
 $captcha = rand(1000, 9999);

@@ -4,8 +4,9 @@
 session_start();
 
 // Función para verificar el tiempo de inactividad
-function verificarInactividad() {
-    $tiempoInactivo = 15; // 2 minutos en segundos
+function verificarInactividad()
+{
+    $tiempoInactivo = 10; // 2 minutos en segundos
 
     // Verificar si existe una marca de tiempo de la última actividad
     if (isset($_SESSION['ultima_actividad']) && (time() - $_SESSION['ultima_actividad']) > $tiempoInactivo) {
@@ -19,11 +20,12 @@ function verificarInactividad() {
 }
 
 // Llamar a la función de verificación de inactividad en cada carga de página
-verificarInactividad();
+$_SESSION['ultima_actividad'] = time();
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -31,6 +33,7 @@ verificarInactividad();
     <!-- Incluir estilos de Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <div class="container">
@@ -43,8 +46,8 @@ verificarInactividad();
                     <li class="nav-item">
                         <a class="nav-link" href="index.php">Inicio</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.php">Acerca de</a>
+                    <li class="nav-item" >
+                        <a class="nav-link" href="#" onclick="about()">Acerca de</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -102,6 +105,22 @@ verificarInactividad();
                 window.location.href = "tiempo_sesion.php";
             }
         }
+
+        function about() {
+            $tiempoInactivo = 15; // 2 minutos en segundos
+
+            // Verificar si existe una marca de tiempo de la última actividad
+            if (isset($_SESSION['ultima_actividad']) && (time() - $_SESSION['ultima_actividad']) > $tiempoInactivo) {
+                // Si el tiempo de inactividad es superior a 2 minutos, redirigir a cierre_sesion.php
+                header("Location: tiempo_sesion.php");
+                exit();
+            } else {
+                // Actualizar la marca de tiempo de la última actividad
+                $_SESSION['ultima_actividad'] = time();
+                window.location.href = 'about.php';
+            }
+        }
     </script>
 </body>
+
 </html>

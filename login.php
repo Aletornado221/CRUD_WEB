@@ -31,6 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($password == $usuario["password"]) {
                     // Iniciar sesión y redirigir a la página de inicio
                     $_SESSION["username"] = $username;
+                    $_SESSION["password"] = $password;
                     header("Location: index.php");
                     exit();
                 } else {

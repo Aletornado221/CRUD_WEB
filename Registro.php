@@ -93,7 +93,7 @@ session_start();
                                 if (isset($_SESSION["username"])) :
                                     $stmt = $conexion->prepare("UPDATE USUARIO SET nombre = ?, username = ?, password = ?, sexo = ?, fechaNacimiento = ? WHERE username = ?");
                                     $stmt->bind_param("ssssss", $nombre, $username, $password, $sexo, $fechaNacimiento, $_SESSION["username"]);
-                                    $_SESSION["username"]=$username;
+                                    $_SESSION["username"] = $username;
                                 endif;
 
                                 $stmt->execute();
@@ -116,11 +116,21 @@ session_start();
                             </div>
                             <div class="form-group">
                                 <label for="username">Username:</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
+                                <?php if (!isset($_SESSION["username"])) : ?>
+                                    <input type="text" class="form-control" id="username" name="username" required>
+                                <?php else : 
+                                   echo" <input type=\"text\" class=\"form-control\" id=\"username\" name=\"username\" required placeholder=\"" + $_SESSION["username"]+ ">";
+                                endif; ?>
+                                
                             </div>
                             <div class="form-group">
                                 <label for="password">Password:</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
+                                
+                                <?php if (!isset($_SESSION["username"])) : ?>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                <?php else : 
+                                   echo" <input type=\"password\" class=\"form-control\" id=\"password\" name=\"password\" required placeholder=\"" + $_SESSION["password"]+ ">";
+                                endif; ?>
                             </div>
                             <div class="form-group">
                                 <label for="sexo">Sexo:</label><br>

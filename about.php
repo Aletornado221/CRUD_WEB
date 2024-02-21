@@ -34,7 +34,7 @@ session_start()
                     <?php endif; ?>
                     <?php if (isset($_SESSION["username"])) : ?>
                         <li class="nav-item">
-                            <span class="navbar-text mr-3"><?php echo $_SESSION["username"]; ?></span>
+                        <a class="nav-link" href="registro.php"><?php echo $_SESSION["username"]; ?></a>
                         </li>
                         <li class="nav-item">
                         <a class="nav-link" href="#" onclick="cerrarSesion()">Cerrar Sesión</a>

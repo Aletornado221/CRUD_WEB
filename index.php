@@ -20,7 +20,7 @@ function verificarInactividad()
 }
 
 // Llamar a la función de verificación de inactividad en cada carga de página
-verificarInactividad();
+
 ?>
 
 <!DOCTYPE html>

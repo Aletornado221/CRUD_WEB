@@ -5,7 +5,7 @@ session_start();
 session_unset();
 session_destroy();
 // Eliminar todas las cookies
-unset($_COOKIE);
+
 
 
 // Redirigir al index.php después de cerrar sesión

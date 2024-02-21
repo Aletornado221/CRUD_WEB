@@ -11,9 +11,9 @@
 </head>
 <body>
 <script>
-        
+        function cerrar() {
             window.location.href = 'cierre_sesion.php';
-        
+        }
     </script>
 
 
@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body text-center">
                         <p>La sesion ha sido cerrada</p>
-                        <a href="index.php" class="btn btn-primary" >Volver al Inicio</a>
+                        <a class="btn btn-primary" onclick="cerrar()" >Volver al Inicio</a>
                     </div>
                 </div>
             </div>

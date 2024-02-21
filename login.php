@@ -45,19 +45,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $conexion->close();
         }
     }
-    
-    // Contador de intentos de inicio de sesión
-    if (!isset($_SESSION['login_attempts'])) {
-        $_SESSION['login_attempts'] = 1;
-    } else {
-        $_SESSION['login_attempts']++;
-    }
 
-    // Si se supera el límite de intentos fallidos, bloquear el acceso
-    if ($_SESSION['login_attempts'] >= 3) {
-        $error = "Demasiados intentos fallidos. Por favor, inténtalo de nuevo más tarde.";
-        // Aquí puedes agregar alguna lógica adicional, como bloquear la cuenta o enviar un correo electrónico de notificación.
-    }
+    // Contador de intentos de inicio de sesión
+    // Contador de intentos de inicio de sesión
+// Contador de intentos de inicio de sesión
+if (!isset($_SESSION['login_attempts'])) {
+    $_SESSION['login_attempts'] = 1;
+} else {
+    $_SESSION['login_attempts']++;
+}
+
+// Si se supera el límite de intentos fallidos, bloquear el acceso durante 30 segundos
+if ($_SESSION['login_attempts'] >= 3) {
+    $error = "Demasiados intentos fallidos. Por favor, inténtalo de nuevo más tarde.";
+    session_destroy(); // Finalizar la sesión actual
+    $_SESSION['login_attempts'] = 0;
+    sleep(5);
+    header("Location: index.php");
+    exit();  
+}
+
+
 }
 
 
@@ -68,13 +76,16 @@ $_SESSION["captcha"] = $captcha;
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <!-- Incluir estilos de Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 </head>
+
 <body>
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -84,7 +95,7 @@ $_SESSION["captcha"] = $captcha;
                         <h5 class="card-title mb-0">Login</h5>
                     </div>
                     <div class="card-body">
-                        <?php if (isset($error)) : ?>
+                        <?php if (isset($error)): ?>
                             <div class="alert alert-danger" role="alert">
                                 <?php echo $error; ?>
                             </div>
@@ -101,10 +112,15 @@ $_SESSION["captcha"] = $captcha;
                             <div class="form-group">
                                 <label for="captcha">Captcha:</label><br>
                                 <input type="text" class="form-control" id="captcha" name="captcha" required>
-                                <small>Captcha: <?php echo $captcha; ?></small>
+                                <small>Captcha:
+                                    <?php echo $captcha; ?>
+                                </small>
                             </div>
-                            <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                            <button type="submit" class="btn btn-primary" id="loginBtn">Iniciar Sesión</button>
                         </form>
+
+                        
+
                     </div>
                 </div>
             </div>
@@ -117,4 +133,5 @@ $_SESSION["captcha"] = $captcha;
     <!-- Incluir script de Bootstrap -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+
 </html>

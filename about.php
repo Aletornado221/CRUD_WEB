@@ -63,6 +63,7 @@ session_start()
                             <li><strong>Correo Electrónico:</strong> info@example.com</li>
                             <li><strong>Teléfono:</strong> +1234567890</li>
                             <li><strong>Dirección:</strong> Calle Ficticia #123, Ciudad Imaginaria</li>
+                            <img src="mapa.jpg" width="400"/>
                         </ul>
                     </div>
                 </div>

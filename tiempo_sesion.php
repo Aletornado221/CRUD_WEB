@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body text-center">
                         <p>La sesion ha sido cerrada</p>
-                        <a href="index.php" class="btn btn-primary" onclick="cerrar()" >Volver al Inicio</a>
+                        <a class="btn btn-primary" onclick="cerrar()" >Volver al Inicio</a>
                     </div>
                 </div>
             </div>

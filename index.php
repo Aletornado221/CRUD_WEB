@@ -3,23 +3,6 @@
 
 session_start();
 
-// Función para verificar el tiempo de inactividad
-function verificarInactividad()
-{
-    $tiempoInactivo = 10; // 2 minutos en segundos
-
-    // Verificar si existe una marca de tiempo de la última actividad
-    if (isset($_SESSION['ultima_actividad']) && (time() - $_SESSION['ultima_actividad']) > $tiempoInactivo) {
-        // Si el tiempo de inactividad es superior a 2 minutos, redirigir a cierre_sesion.php
-        header("Location: tiempo_sesion.php");
-        exit();
-    } else {
-        // Actualizar la marca de tiempo de la última actividad
-        $_SESSION['ultima_actividad'] = time();
-    }
-}
-
-// Llamar a la función de verificación de inactividad en cada carga de página
 
 ?>
 
@@ -47,7 +30,7 @@ function verificarInactividad()
                         <a class="nav-link" href="index.php">Inicio</a>
                     </li>
                     <li class="nav-item" >
-                        <a class="nav-link" href="#" onclick="about()">Acerca de</a>
+                        <a class="nav-link" href="about.php" onclick="about()">Acerca de</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -108,20 +91,49 @@ function cerrarSesion() {
     }
 }
 
-        function about() {
-            $tiempoInactivo = 15; // 2 minutos en segundos
 
-            // Verificar si existe una marca de tiempo de la última actividad
-            if (isset($_SESSION['ultima_actividad']) && (time() - $_SESSION['ultima_actividad']) > $tiempoInactivo) {
-                // Si el tiempo de inactividad es superior a 2 minutos, redirigir a cierre_sesion.php
-                header("Location: tiempo_sesion.php");
-                exit();
-            } else {
-                // Actualizar la marca de tiempo de la última actividad
-                $_SESSION['ultima_actividad'] = time();
-                window.location.href = 'about.php';
-            }
-        }
+
+
+
+
+
+
+// Establecer el tiempo de inactividad en milisegundos (10 minutos en este caso)
+var tiempoDeInactividad = 2 * 60 * 1000; // 10 minutos
+
+// Variable para almacenar el temporizador
+var temporizadorDeInactividad;
+
+// Función para reiniciar el temporizador de inactividad
+function reiniciarTemporizadorDeInactividad() {
+    clearTimeout(temporizadorDeInactividad);
+    temporizadorDeInactividad = setTimeout(ejecutarArchivoPHP, tiempoDeInactividad);
+}
+
+// Función para ejecutar el archivo PHP
+
+function ejecutarArchivoPHP() {
+    // Hacer una solicitud HTTP a tu archivo PHP
+    // Esto podría ser una llamada AJAX o una redirección
+    // Aquí te dejo un ejemplo de una solicitud AJAX usando fetch()
+    <?php if (isset($_SESSION["username"])) : ?>
+
+        window.location.href = "tiempo_sesion.php";
+
+
+    <?php endif; ?>
+
+}
+
+// Evento para detectar la actividad del usuario (cualquier interacción)
+document.addEventListener('mousemove', reiniciarTemporizadorDeInactividad);
+document.addEventListener('keypress', reiniciarTemporizadorDeInactividad);
+    
+    reiniciarTemporizadorDeInactividad();
+
+
+// Iniciar el temporizador de inactividad
+
 
     </script>
 </body>

@@ -31,11 +31,7 @@
         $conn->close();
     }
 
-    // Ejemplo de uso de las funciones
-
-    // Si necesitas hacer operaciones con la base de datos aquí, puedes escribir tu código
-
-    // Luego, cierras la conexión cuando hayas terminado
+    
     ?>
 </body>
 </html>

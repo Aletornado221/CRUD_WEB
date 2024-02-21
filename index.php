@@ -83,8 +83,7 @@ session_start();
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <script>
-        // Función parta cerrar sesión
-        // Función para confirmar y luego enviar solicitud a tiempo_sesion.php
+        
 function cerrarSesion() {
     if (confirm("¿Estás seguro de que quieres cerrar sesión?")) {
         
@@ -114,9 +113,7 @@ function reiniciarTemporizadorDeInactividad() {
 // Función para ejecutar el archivo PHP
 
 function ejecutarArchivoPHP() {
-    // Hacer una solicitud HTTP a tu archivo PHP
-    // Esto podría ser una llamada AJAX o una redirección
-    // Aquí te dejo un ejemplo de una solicitud AJAX usando fetch()
+   
     <?php if (isset($_SESSION["username"])) : ?>
 
         window.location.href = "tiempo_sesion.php";
@@ -133,7 +130,6 @@ document.addEventListener('keypress', reiniciarTemporizadorDeInactividad);
     reiniciarTemporizadorDeInactividad();
 
 
-// Iniciar el temporizador de inactividad
 
 
     </script>
